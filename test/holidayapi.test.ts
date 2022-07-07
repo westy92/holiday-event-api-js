@@ -101,3 +101,75 @@ describe('getEvents', () => {
     });
   });
 });
+
+describe('search', () => {
+  test('fetches with default parameters', async () => {
+    nock('https://api.apilayer.com/checkiday/')
+      .get('/search')
+      .query({
+        query: 'zucchini',
+      })
+      .replyWithFile(200, 'test/responses/search-default.json');
+    
+    const api = new HolidayApi({ apiKey: 'abc123' });
+    const response = await api.search({
+      query: 'zucchini',
+    });
+    expect(response.adult).toBe(false);
+    expect(response.query).toBe('zucchini');
+    expect(response.events).toHaveLength(3);
+    expect(response.events[0]).toEqual({
+      "id": "cc81cbd8730098456f85f69798cbc867",
+      "name": "National Zucchini Bread Day",
+      "url": "https://www.checkiday.com/cc81cbd8730098456f85f69798cbc867/national-zucchini-bread-day"
+    });
+  });
+
+  test('fetches with set parameters', async () => {
+    nock('https://api.apilayer.com/checkiday/')
+      .get('/search')
+      .query({
+        adult: 'true',
+        query: 'porch day',
+      })
+      .replyWithFile(200, 'test/responses/search-parameters.json');
+    
+    const api = new HolidayApi({ apiKey: 'abc123' });
+    const response = await api.search({
+      adult: true,
+      query: 'porch day',
+    });
+    expect(response.adult).toBe(true);
+    expect(response.query).toBe('porch day');
+    expect(response.events).toHaveLength(1);
+    expect(response.events[0]).toEqual({
+      "id": "61363236f06e4eb8e4e14e5925c2503d",
+      "name": "Sneak Some Zucchini Onto Your Neighbor's Porch Day",
+      "url": "https://www.checkiday.com/61363236f06e4eb8e4e14e5925c2503d/sneak-some-zucchini-onto-your-neighbors-porch-day"
+    });
+  });
+
+  test('query too short', async () => {
+    nock('https://api.apilayer.com/checkiday/', {
+    }).get('/search')
+      .query({
+        query: 'a',
+      })
+      .reply(400, { error: 'Please enter a longer search term.' });
+    
+    const api = new HolidayApi({ apiKey: 'abc123' });
+    expect(api.search({ query: 'a' })).rejects.toThrowError('Please enter a longer search term.');
+  });
+
+  test('too many results', async () => {
+    nock('https://api.apilayer.com/checkiday/', {
+    }).get('/search')
+      .query({
+        query: 'day',
+      })
+      .reply(400, { error: 'Too many results returned. Please refine your query.' });
+    
+    const api = new HolidayApi({ apiKey: 'abc123' });
+    expect(api.search({ query: 'day' })).rejects.toThrowError('Too many results returned. Please refine your query.');
+  });
+});

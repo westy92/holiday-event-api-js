@@ -5,6 +5,8 @@ import {
   GetEventsRequest,
   GetEventsResponse,
   HolidayApiConfig,
+  SearchRequest,
+  SearchResponse,
 } from './types';
 
 export class HolidayApi {
@@ -31,6 +33,37 @@ export class HolidayApi {
     }
     if (!!request?.timezone) {
       params.timezone = request?.timezone;
+    }
+    url.search = new URLSearchParams(params).toString();
+    let payload: any;
+    const response = await fetch(url, {
+      headers: {
+        apikey: this.apiKey,
+        'User-Agent': this.userAgent,
+      },
+    });
+
+    try {
+      payload = await response.json();
+    } catch (err) {
+      payload = {};
+    }
+
+    if (!response.ok) {
+      throw new Error(payload.error || response.statusText);
+    }
+
+    return payload;
+  }
+
+  async search(request: SearchRequest): Promise<SearchResponse> {
+    const url = new URL('search', this.baseUrl);
+    const params: {[index: string]: string} = {};
+    if (!!request?.query) {
+      params.query = request?.query;
+    }
+    if (request?.adult) {
+      params.adult = request?.adult.toString();
     }
     url.search = new URLSearchParams(params).toString();
     let payload: any;
