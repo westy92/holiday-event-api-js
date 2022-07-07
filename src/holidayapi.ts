@@ -25,7 +25,6 @@ export class HolidayApi {
   }
 
   async getEventInfo(request: GetEventInfoRequest): Promise<GetEventInfoResponse> {
-    const url = new URL('event', this.baseUrl);
     const params: {[index: string]: string} = {};
     if (!!request?.id) {
       params.id = request?.id;
@@ -36,30 +35,11 @@ export class HolidayApi {
     if (Number.isInteger(request?.end)) {
       params.end = request?.end.toString();
     }
-    url.search = new URLSearchParams(params).toString();
-    let payload: any;
-    const response = await fetch(url, {
-      headers: {
-        apikey: this.apiKey,
-        'User-Agent': this.userAgent,
-      },
-    });
-
-    try {
-      payload = await response.json();
-    } catch (err) {
-      payload = {};
-    }
-
-    if (!response.ok) {
-      throw new Error(payload.error || response.statusText);
-    }
-
-    return payload;
+    
+    return this.request('event', params);
   }
 
   async getEvents(request?: GetEventsRequest): Promise<GetEventsResponse> {
-    const url = new URL('events', this.baseUrl);
     const params: {[index: string]: string} = {};
     if (!!request?.date) {
       params.date = request?.date;
@@ -70,30 +50,11 @@ export class HolidayApi {
     if (!!request?.timezone) {
       params.timezone = request?.timezone;
     }
-    url.search = new URLSearchParams(params).toString();
-    let payload: any;
-    const response = await fetch(url, {
-      headers: {
-        apikey: this.apiKey,
-        'User-Agent': this.userAgent,
-      },
-    });
 
-    try {
-      payload = await response.json();
-    } catch (err) {
-      payload = {};
-    }
-
-    if (!response.ok) {
-      throw new Error(payload.error || response.statusText);
-    }
-
-    return payload;
+    return this.request('events', params);
   }
 
   async search(request: SearchRequest): Promise<SearchResponse> {
-    const url = new URL('search', this.baseUrl);
     const params: {[index: string]: string} = {};
     if (!!request?.query) {
       params.query = request?.query;
@@ -101,6 +62,12 @@ export class HolidayApi {
     if (request?.adult) {
       params.adult = request?.adult.toString();
     }
+
+    return this.request('search', params);
+  }
+
+  private async request(path: string, params: {[index: string]: string}) {
+    const url = new URL(path, this.baseUrl);
     url.search = new URLSearchParams(params).toString();
     let payload: any;
     const response = await fetch(url, {
