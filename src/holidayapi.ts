@@ -2,6 +2,8 @@ import fetch from 'node-fetch';
 import { URL, URLSearchParams } from 'url';
 
 import {
+  GetEventInfoRequest,
+  GetEventInfoResponse,
   GetEventsRequest,
   GetEventsResponse,
   HolidayApiConfig,
@@ -20,6 +22,40 @@ export class HolidayApi {
       throw new Error('Please provide a valid API key.');
     }
     this.apiKey = config.apiKey;
+  }
+
+  async getEventInfo(request: GetEventInfoRequest): Promise<GetEventInfoResponse> {
+    const url = new URL('event', this.baseUrl);
+    const params: {[index: string]: string} = {};
+    if (!!request?.id) {
+      params.id = request?.id;
+    }
+    if (Number.isInteger(request?.start)) {
+      params.start = request?.start.toString();
+    }
+    if (Number.isInteger(request?.end)) {
+      params.end = request?.end.toString();
+    }
+    url.search = new URLSearchParams(params).toString();
+    let payload: any;
+    const response = await fetch(url, {
+      headers: {
+        apikey: this.apiKey,
+        'User-Agent': this.userAgent,
+      },
+    });
+
+    try {
+      payload = await response.json();
+    } catch (err) {
+      payload = {};
+    }
+
+    if (!response.ok) {
+      throw new Error(payload.error || response.statusText);
+    }
+
+    return payload;
   }
 
   async getEvents(request?: GetEventsRequest): Promise<GetEventsResponse> {

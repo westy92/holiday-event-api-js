@@ -102,6 +102,59 @@ describe('getEvents', () => {
   });
 });
 
+describe('getEventInfo', () => {
+  test('fetches with default parameters', async () => {
+    nock('https://api.apilayer.com/checkiday/')
+      .get('/event')
+      .query({
+        id: 'f90b893ea04939d7456f30c54f68d7b4',
+      })
+      .replyWithFile(200, 'test/responses/getEventInfo.json');
+    
+    const api = new HolidayApi({ apiKey: 'abc123' });
+    const response = await api.getEventInfo({
+      id: 'f90b893ea04939d7456f30c54f68d7b4',
+    });
+    expect(response.event.id).toBe('f90b893ea04939d7456f30c54f68d7b4');
+    expect(response.event.hashtags).toHaveLength(2);
+  });
+
+  test('fetches with set parameters', async () => {
+    nock('https://api.apilayer.com/checkiday/')
+      .get('/event')
+      .query({
+        id: 'f90b893ea04939d7456f30c54f68d7b4',
+        start: '2002',
+        end: '2003',
+      })
+      .replyWithFile(200, 'test/responses/getEventInfo-parameters.json');
+    
+    const api = new HolidayApi({ apiKey: 'abc123' });
+    const response = await api.getEventInfo({
+      id: 'f90b893ea04939d7456f30c54f68d7b4',
+      start: 2002,
+      end: 2003,
+    });
+    expect(response.event.occurrences).toHaveLength(2);
+    expect(response.event.occurrences![0]).toEqual({
+      "date": "08/08/2002",
+      "length": 1
+    });
+  });
+
+  test('invalid event', async () => {
+    nock('https://api.apilayer.com/checkiday/', {
+    }).get('/event')
+      .query({
+        id: 'hi',
+      })
+      .reply(404, { error: 'Event not found.' });
+    
+    const api = new HolidayApi({ apiKey: 'abc123' });
+    expect(api.getEventInfo({ id: 'hi' })).rejects.toThrowError('Event not found.');
+  });
+});
+
 describe('search', () => {
   test('fetches with default parameters', async () => {
     nock('https://api.apilayer.com/checkiday/')
