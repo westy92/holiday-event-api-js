@@ -1,0 +1,30 @@
+{
+  "name": "holiday-api",
+  "version": "0.0.1",
+  "description": "Holiday API for Node.js.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/westy92/holiday-api-js.git"
+  },
+  "keywords": [
+    "holiday",
+    "api"
+  ],
+  "author": "Seth Westphal <seth@sethwestphal.com> (http://www.sethwestphal.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/westy92/holiday-api-js/issues"
+  },
+  "homepage": "https://github.com/westy92/holiday-api-js#readme",
+  "funding": "https://github.com/sponsors/westy92",
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  }
+}
