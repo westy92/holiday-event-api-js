@@ -72,4 +72,32 @@ describe('getEvents', () => {
       "url": "https://www.checkiday.com/b80630ae75c35f34c0526173dd999cfc/cinco-de-mayo"
     });
   });
+
+  test('fetches with set parameters', async () => {
+    nock('https://api.apilayer.com/checkiday/')
+      .get('/events')
+      .query({
+        adult: 'true',
+        timezone: 'America/New_York',
+        date: '7/16/1992'
+      })
+      .replyWithFile(200, 'test/responses/getEvents-parameters.json');
+    
+    const api = new HolidayApi({ apiKey: 'abc123' });
+    const response = await api.getEvents({
+      adult: true,
+      timezone: 'America/New_York',
+      date: '7/16/1992',
+    });
+    expect(response.adult).toBe(true);
+    expect(response.timezone).toBe('America/New_York');
+    expect(response.events).toHaveLength(2);
+    expect(response.multiday_starting).toHaveLength(0);
+    expect(response.multiday_ongoing).toHaveLength(1);
+    expect(response.events[0]).toEqual({
+      "id": "6ebb6fd5e483de2fde33969a6c398472",
+      "name": "Get to Know Your Customers Day",
+      "url": "https://www.checkiday.com/6ebb6fd5e483de2fde33969a6c398472/get-to-know-your-customers-day"
+    });
+  });
 });
