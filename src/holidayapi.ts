@@ -14,6 +14,9 @@ export class HolidayApi {
   private userAgent: string = 'HolidayApiJs/' + this.version;
 
   constructor(config: HolidayApiConfig) {
+    if (!config?.apiKey || config.apiKey.length == 0) {
+      throw new Error('Please provide a valid API key.');
+    }
     this.apiKey = config.apiKey;
   }
 
