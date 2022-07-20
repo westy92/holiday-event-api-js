@@ -36,3 +36,8 @@ dist
 
 # phpStorm files
 .idea
+
+example/package-lock.json
+example/index.d.ts
+example/index.js.map
+example/index.js

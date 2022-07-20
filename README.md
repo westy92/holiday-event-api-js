@@ -16,8 +16,13 @@ Access to the Holiday API requires an API Key. You can get for one for FREE [her
 ## Authentication
 Simply construct an instance of `HolidayApi` and pass your API Key like this:
 ```ts
+import { HolidayApi } from 'holiday-api-js';
+
 const api = new HolidayApi({ apiKey: '<Your API Key Here>' });
 ```
+
+## Example Project
+You can find a fully-functioning example project [here](example).
 
 ## Get Events
 Get all events for a specified date.

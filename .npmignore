@@ -8,6 +8,7 @@
 .vscode/
 coverage/
 dist/test/
+example/
 jest.config.js
 test/
 tsconfig.json
