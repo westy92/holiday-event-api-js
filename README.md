@@ -27,7 +27,7 @@ const response = await api.getEvents({
 });
 ```
 
-Example response:
+Example response (some events removed to save space):
 ```json
 {
     "timezone": "America/New_York",
@@ -39,7 +39,6 @@ Example response:
             "name": "Cinco de Mayo",
             "url": "https://www.checkiday.com/b80630ae75c35f34c0526173dd999cfc/cinco-de-mayo"
         },
-        // and more ...
         {
             "id": "346052f12d9209ef2119f45565a47279",
             "name": "Totally Chipotle Day",
@@ -59,7 +58,6 @@ Example response:
             "name": "Be Kind to Animals Week",
             "url": "https://www.checkiday.com/676cd91e31adcacd0a505117d2c4a842/be-kind-to-animals-week"
         },
-        // and more ...
         {
             "id": "9cc82cc56178ba41f120381a4d6e5213",
             "name": "Syringomyelia Awareness Month",
@@ -120,7 +118,7 @@ const response = await api.getEventInfo({
 });
 ```
 
-Example response:
+Example response (some strings shortened to save space):
 ```json
 {
     "event": {
