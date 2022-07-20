@@ -1,5 +1,6 @@
 .appveyor.yml
 .eslintrc.json
+.github/
 .istanbul.yml
 .mocharc.json
 .nyc_output/
