@@ -1,5 +1,6 @@
 # Holiday API for JavaScript/TypeScript
 
+[![npm version](https://badge.fury.io/js/holiday-api-js.svg)](https://www.npmjs.com/package/holiday-api-js)
 [![Build Status](https://github.com/westy92/holiday-api-js/actions/workflows/github-actions.yml/badge.svg)](https://github.com/westy92/holiday-api-js/actions)
 [![Code Coverage](https://codecov.io/gh/westy92/holiday-api-js/branch/main/graph/badge.svg)](https://codecov.io/gh/westy92/holiday-api-js)
 [![Known Vulnerabilities](https://snyk.io/test/github/westy92/holiday-api-js/badge.svg)](https://snyk.io/test/github/westy92/holiday-api-js)

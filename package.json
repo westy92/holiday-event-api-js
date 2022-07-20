@@ -1,5 +1,5 @@
 {
-  "name": "holiday-api",
+  "name": "holiday-api-js",
   "version": "0.0.1",
   "description": "Industry-leading holiday API for Node.js.",
   "main": "dist/index.js",
