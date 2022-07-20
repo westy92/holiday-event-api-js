@@ -51,6 +51,15 @@ describe('common functionality tests', () => {
     const api = new HolidayApi({ apiKey: 'abc123' });
     expect(api.getEvents()).rejects.toThrowError('MyError!');
   });
+
+  test('server error', async () => {
+    nock('https://api.apilayer.com/checkiday/', {
+    }).get('/events')
+      .reply(500);
+    
+    const api = new HolidayApi({ apiKey: 'abc123' });
+    expect(api.getEvents()).rejects.toThrowError('Internal Server Error');
+  });
 });
 
 describe('getEvents', () => {
@@ -153,6 +162,16 @@ describe('getEventInfo', () => {
     const api = new HolidayApi({ apiKey: 'abc123' });
     expect(api.getEventInfo({ id: 'hi' })).rejects.toThrowError('Event not found.');
   });
+
+  test('missing id', async () => {
+    const api = new HolidayApi({ apiKey: 'abc123' });
+    expect(api.getEventInfo({} as any)).rejects.toThrowError('Event id is required.');
+  });
+
+  test('missing parameters', async () => {
+    const api = new HolidayApi({ apiKey: 'abc123' });
+    expect(api.getEventInfo(undefined as any)).rejects.toThrowError('Event id is required.');
+  });
 });
 
 describe('search', () => {
@@ -224,5 +243,10 @@ describe('search', () => {
     
     const api = new HolidayApi({ apiKey: 'abc123' });
     expect(api.search({ query: 'day' })).rejects.toThrowError('Too many results returned. Please refine your query.');
+  });
+
+  test('missing parameters', async () => {
+    const api = new HolidayApi({ apiKey: 'abc123' });
+    expect(api.search(undefined as any)).rejects.toThrowError('Search query is required.');
   });
 });
