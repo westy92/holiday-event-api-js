@@ -47,8 +47,17 @@ export type Occurrence = {
 };
 
 export type GetEventsRequest = {
+  /**
+   * Date to get the events for. Defaults to today.
+   */
   date?: string;
+  /**
+   * Include events that may be unsafe for viewing at work or by children. Default is false.
+   */
   adult?: boolean;
+  /**
+   * IANA Time Zone for calculating dates and times. Defaults to America/Chicago.
+   */
   timezone?: string;
 };
 
@@ -62,8 +71,17 @@ export type GetEventsResponse = {
 };
 
 export type GetEventInfoRequest = {
+  /**
+   * The ID of the requested Event.
+   */
   id: string;
+  /**
+   * The starting range of returned occurrences. Optional, defaults to 2 years prior.
+   */
   start?: number;
+  /**
+   * The ending range of returned occurrences. Optional, defaults to 3 years in the future.
+   */
   end?: number;
 };
 
@@ -82,7 +100,13 @@ export type GetEventInfoResponse = {
 };
 
 export type SearchRequest = {
+  /**
+   * The search query. Must be at least 3 characters long.
+   */
   query: string;
+  /**
+   * Include events that may be unsafe for viewing at work or by children. Default is false.
+   */
   adult?: boolean;
 };
 

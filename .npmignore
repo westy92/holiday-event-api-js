@@ -1,0 +1,12 @@
+.appveyor.yml
+.eslintrc.json
+.istanbul.yml
+.mocharc.json
+.nyc_output/
+.nycrc
+.vscode/
+coverage/
+dist/test/
+jest.config.js
+test/
+tsconfig.json

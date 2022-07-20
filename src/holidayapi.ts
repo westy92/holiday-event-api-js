@@ -19,11 +19,16 @@ export class HolidayApi {
 
   constructor(config: HolidayApiConfig) {
     if (!config?.apiKey || config.apiKey.length == 0) {
-      throw new Error('Please provide a valid API key.');
+      throw new Error('Please provide a valid API key. Get one at https://apilayer.com/marketplace/checkiday-api#pricing.');
     }
     this.apiKey = config.apiKey;
   }
 
+  /**
+   * Get additional information for an Event.
+   * @param request the request information.
+   * @returns the requested Event information.
+   */
   async getEventInfo(request: GetEventInfoRequest): Promise<GetEventInfoResponse> {
     const params: {[index: string]: string} = {};
     if (!!request?.id) {
@@ -35,10 +40,15 @@ export class HolidayApi {
     if (Number.isInteger(request?.end)) {
       params.end = request?.end.toString();
     }
-    
+
     return this.request('event', params);
   }
 
+  /**
+   * Get all events for a specified date.
+   * @param request request parameters.
+   * @returns the events.
+   */
   async getEvents(request?: GetEventsRequest): Promise<GetEventsResponse> {
     const params: {[index: string]: string} = {};
     if (!!request?.date) {
@@ -54,6 +64,11 @@ export class HolidayApi {
     return this.request('events', params);
   }
 
+  /**
+   * Search for events.
+   * @param request the search request.
+   * @returns the search results.
+   */
   async search(request: SearchRequest): Promise<SearchResponse> {
     const params: {[index: string]: string} = {};
     if (!!request?.query) {
@@ -69,7 +84,6 @@ export class HolidayApi {
   private async request(path: string, params: {[index: string]: string}) {
     const url = new URL(path, this.baseUrl);
     url.search = new URLSearchParams(params).toString();
-    let payload: any;
     const response = await fetch(url, {
       headers: {
         apikey: this.apiKey,
@@ -77,6 +91,7 @@ export class HolidayApi {
       },
     });
 
+    let payload: any;
     try {
       payload = await response.json();
     } catch (err) {
