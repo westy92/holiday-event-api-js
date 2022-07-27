@@ -46,6 +46,17 @@ export type Occurrence = {
   length: number;
 };
 
+export type RateLimit = {
+  limitMonth: number;
+  limitDay: number;
+  remainingMonth: number;
+  remainingDay: number;
+}
+
+export type StandardResponse = {
+  rateLimit: RateLimit;
+};
+
 export type GetEventsRequest = {
   /**
    * Date to get the events for. Defaults to today.
@@ -61,7 +72,7 @@ export type GetEventsRequest = {
   timezone?: string;
 };
 
-export type GetEventsResponse = {
+export type GetEventsResponse = StandardResponse & {
   adult: boolean;
   date: string | number;
   timezone: string;
@@ -85,7 +96,7 @@ export type GetEventInfoRequest = {
   end?: number;
 };
 
-export type GetEventInfoResponse = {
+export type GetEventInfoResponse = StandardResponse & {
   event: EventSummary & {
     adult: boolean;
     alternate_names: AlternateName[];
@@ -110,7 +121,7 @@ export type SearchRequest = {
   adult?: boolean;
 };
 
-export type SearchResponse = {
+export type SearchResponse = StandardResponse & {
   query: string;
   adult: boolean;
   events: EventSummary[];

@@ -98,6 +98,13 @@ export class HolidayApi {
       payload = await response.json();
     } catch (err) {
       payload = {};
+    } finally {
+      payload.rateLimit = {
+        limitMonth: parseInt(response.headers.get('x-ratelimit-limit-month')),
+        limitDay: parseInt(response.headers.get('x-ratelimit-limit-day')),
+        remainingMonth: parseInt(response.headers.get('x-ratelimit-remaining-month')),
+        remainingDay: parseInt(response.headers.get('x-ratelimit-remaining-day')),
+      }
     }
 
     if (!response.ok) {
