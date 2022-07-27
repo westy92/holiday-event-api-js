@@ -217,3 +217,4 @@ Example response (some strings shortened to save space):
 ```
 
 <!-- TODO errors -->
+<!-- TODO changelog once 1.0.0 -->

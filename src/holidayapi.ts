@@ -13,7 +13,7 @@ import {
 
 export class HolidayApi {
   private apiKey: string;
-  private version: string = '0.0.1';
+  private version: string = '0.0.2';
   private baseUrl: string = 'https://api.apilayer.com/checkiday/';
   private userAgent: string = 'HolidayApiJs/' + this.version;
 
