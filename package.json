@@ -55,7 +55,7 @@
   "homepage": "https://github.com/westy92/holiday-api-js#readme",
   "funding": "https://github.com/sponsors/westy92",
   "dependencies": {
-    "node-fetch": "^2.6.7"
+    "node-fetch": "^3.2.10"
   },
   "devDependencies": {
     "@types/jest": "^28.1.4",
