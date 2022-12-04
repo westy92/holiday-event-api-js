@@ -48,9 +48,7 @@ export type Occurrence = {
 
 export type RateLimit = {
   limitMonth: number;
-  limitDay: number;
   remainingMonth: number;
-  remainingDay: number;
 }
 
 export type StandardResponse = {

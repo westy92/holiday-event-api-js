@@ -68,17 +68,13 @@ describe('common functionality tests', () => {
     .replyWithFile(200, 'test/responses/getEvents-default.json', {
       'X-RateLimit-Limit-Month': '100',
       'x-ratelimit-remaining-month': '88',
-      'x-ratelimit-limit-day': '10',
-      'x-ratelimit-remaining-day': '9',
     });
     
     const api = new HolidayApi({ apiKey: 'abc123' });
     const response = await api.getEvents();
     expect(response.rateLimit).toEqual<RateLimit>({
       limitMonth: 100,
-      limitDay: 10,
       remainingMonth: 88,
-      remainingDay: 9,
     });
   });
 });
