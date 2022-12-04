@@ -1,12 +1,12 @@
-# Holiday API for JavaScript/TypeScript
+# Holiday and Event API for JavaScript/TypeScript
 
-[![npm version](https://badge.fury.io/js/holiday-api-js.svg)](https://www.npmjs.com/package/holiday-api-js)
-[![Build Status](https://github.com/westy92/holiday-api-js/actions/workflows/github-actions.yml/badge.svg)](https://github.com/westy92/holiday-api-js/actions)
-[![Code Coverage](https://codecov.io/gh/westy92/holiday-api-js/branch/main/graph/badge.svg)](https://codecov.io/gh/westy92/holiday-api-js)
-[![Known Vulnerabilities](https://snyk.io/test/github/westy92/holiday-api-js/badge.svg)](https://snyk.io/test/github/westy92/holiday-api-js)
+[![npm version](https://badge.fury.io/js/holiday-event-api-js.svg)](https://www.npmjs.com/package/holiday-event-api-js)
+[![Build Status](https://github.com/westy92/holiday-event-api-js/actions/workflows/github-actions.yml/badge.svg)](https://github.com/westy92/holiday-event-api-js/actions)
+[![Code Coverage](https://codecov.io/gh/westy92/holiday-event-api-js/branch/main/graph/badge.svg)](https://codecov.io/gh/westy92/holiday-event-api-js)
+[![Known Vulnerabilities](https://snyk.io/test/github/westy92/holiday-event-api-js/badge.svg)](https://snyk.io/test/github/westy92/holiday-event-api-js)
 [![Funding Status](https://img.shields.io/github/sponsors/westy92)](https://github.com/sponsors/westy92)
 
-Industry-leading Holiday API for JavaScript/TypeScript. Over 5,000 holidays and thousands of descriptions. Trusted by the World’s leading companies. Built by developers for developers since 2011.
+Industry-leading Holiday and Event API for JavaScript/TypeScript. Over 5,000 holidays and thousands of descriptions. Trusted by the World’s leading companies. Built by developers for developers since 2011.
 
 # Authentication
 Access to the Holiday API requires an API Key. You can get for one for FREE [here](https://apilayer.com/marketplace/checkiday-api#pricing), no credit card required! Note that free plans are limited. To access more data and have more requests, a paid plan is required.
@@ -16,7 +16,7 @@ Access to the Holiday API requires an API Key. You can get for one for FREE [her
 ## Authentication
 Simply construct an instance of `HolidayApi` and pass your API Key like this:
 ```ts
-import { HolidayApi } from 'holiday-api-js';
+import { HolidayApi } from 'holiday-event-api-js';
 
 const api = new HolidayApi({ apiKey: '<Your API Key Here>' });
 ```
@@ -29,15 +29,15 @@ Get all events for a specified date.
 
 ```ts
 const response = await api.getEvents({
-  // Include events that may be unsafe for viewing at work or by children.
-  // (Optional, defaults to false.)
-  adult: true,
-  // IANA Time Zone for calculating dates and times.
-  // (Optional, defaults to America/Chicago.)
-  timezone: 'America/New_York',
   // Date to get the events for.
   // (Optional, defaults to today.)
   date: '5/5/2025',
+  // IANA Time Zone for calculating dates and times.
+  // (Optional, defaults to America/Chicago.)
+  timezone: 'America/New_York',
+  // Include events that may be unsafe for viewing at work or by children.
+  // (Optional, defaults to false.)
+  adult: true,
 });
 ```
 

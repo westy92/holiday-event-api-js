@@ -1,4 +1,4 @@
-import { HolidayApi } from 'holiday-api-js';
+import { HolidayApi } from 'holiday-event-api-js';
 
 const holidayApi = new HolidayApi({ apiKey: '<Your API Key Here>' });
 

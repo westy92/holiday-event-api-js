@@ -1,5 +1,5 @@
 {
-  "name": "holiday-api-js-example",
+  "name": "holiday-event-api-js-example",
   "private": true,
   "version": "1.0.0",
   "description": "Holiday API JS Example Project",
@@ -8,7 +8,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "holiday-api-js": "^0.0.2"
+    "holiday-event-api-js": "^0.0.2"
   },
   "devDependencies": {
     "typescript": "^4.7.4"
