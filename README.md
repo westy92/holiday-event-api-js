@@ -1,6 +1,6 @@
 # Holiday and Event API for JavaScript/TypeScript
 
-[![npm version](https://badge.fury.io/js/holiday-event-api-js.svg)](https://www.npmjs.com/package/holiday-event-api-js)
+[![npm version](https://badge.fury.io/js/holiday-event-api.svg)](https://www.npmjs.com/package/holiday-event-api)
 [![Build Status](https://github.com/westy92/holiday-event-api-js/actions/workflows/github-actions.yml/badge.svg)](https://github.com/westy92/holiday-event-api-js/actions)
 [![Code Coverage](https://codecov.io/gh/westy92/holiday-event-api-js/branch/main/graph/badge.svg)](https://codecov.io/gh/westy92/holiday-event-api-js)
 [![Known Vulnerabilities](https://snyk.io/test/github/westy92/holiday-event-api-js/badge.svg)](https://snyk.io/test/github/westy92/holiday-event-api-js)
@@ -16,7 +16,7 @@ Access to the Holiday API requires an API Key. You can get for one for FREE [her
 ## Authentication
 Simply construct an instance of `HolidayApi` and pass your API Key like this:
 ```ts
-import { HolidayApi } from 'holiday-event-api-js';
+import { HolidayApi } from 'holiday-event-api';
 
 const api = new HolidayApi({ apiKey: '<Your API Key Here>' });
 ```

@@ -1,14 +1,14 @@
 {
-  "name": "holiday-event-api-js-example",
+  "name": "holiday-event-api-example",
   "private": true,
   "version": "1.0.0",
-  "description": "Holiday API JS Example Project",
+  "description": "Holiday and Event API TypeScript Example Project",
   "main": "index.js",
   "scripts": {
     "build": "tsc"
   },
   "dependencies": {
-    "holiday-event-api-js": "^0.0.2"
+    "holiday-event-api": "^0.0.2"
   },
   "devDependencies": {
     "typescript": "^4.7.4"

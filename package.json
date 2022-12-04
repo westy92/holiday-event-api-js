@@ -1,5 +1,5 @@
 {
-  "name": "holiday-event-api-js",
+  "name": "holiday-event-api",
   "version": "0.0.2",
   "description": "Industry-leading holiday and event API for Node.js.",
   "main": "dist/index.js",
