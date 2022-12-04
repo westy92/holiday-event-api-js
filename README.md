@@ -80,9 +80,7 @@ Example response (some events removed to save space):
     ],
     "rateLimit": {
         "limitMonth": 100,
-        "limitDay": 10,
-        "remainingMonth": 88,
-        "remainingDay": 9
+        "remainingMonth": 88
     }
 }
 ```
@@ -124,9 +122,7 @@ Example response:
     ],
     "rateLimit": {
         "limitMonth": 100,
-        "limitDay": 10,
-        "remainingMonth": 88,
-        "remainingDay": 9
+        "remainingMonth": 88
     }
 }
 ```
@@ -209,9 +205,7 @@ Example response (some strings shortened to save space):
     },
     "rateLimit": {
         "limitMonth": 100,
-        "limitDay": 10,
-        "remainingMonth": 88,
-        "remainingDay": 9
+        "remainingMonth": 88
     }
 }
 ```
