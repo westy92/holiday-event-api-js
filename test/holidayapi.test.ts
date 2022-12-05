@@ -45,8 +45,8 @@ describe('common functionality tests', () => {
   });
 
   test('passes along error', async () => {
-    nock('https://api.apilayer.com/checkiday/', {
-    }).get('/events')
+    nock('https://api.apilayer.com/checkiday/')
+      .get('/events')
       .reply(401, { error: 'MyError!' });
     
     const api = new HolidayApi({ apiKey: 'abc123' });
@@ -54,21 +54,34 @@ describe('common functionality tests', () => {
   });
 
   test('server error', async () => {
-    nock('https://api.apilayer.com/checkiday/', {
-    }).get('/events')
+    nock('https://api.apilayer.com/checkiday/')
+      .get('/events')
       .reply(500);
     
     const api = new HolidayApi({ apiKey: 'abc123' });
     expect(api.getEvents()).rejects.toThrowError('Internal Server Error');
   });
 
+  test('follows redirects', async () => {
+    nock('https://api.apilayer.com/checkiday/')
+      .get('/events')
+      .reply(302, undefined, {
+        'Location': 'https://api.apilayer.com/checkiday/redirected'
+      })
+      .get('/redirected')
+      .reply(200)
+    
+    const api = new HolidayApi({ apiKey: 'abc123' });
+    await api.getEvents();
+  });
+
   test('reports rate limits', async () => {
-    nock('https://api.apilayer.com/checkiday/', {
-    }).get('/events')
-    .replyWithFile(200, 'test/responses/getEvents-default.json', {
-      'X-RateLimit-Limit-Month': '100',
-      'x-ratelimit-remaining-month': '88',
-    });
+    nock('https://api.apilayer.com/checkiday/')
+      .get('/events')
+      .replyWithFile(200, 'test/responses/getEvents-default.json', {
+        'X-RateLimit-Limit-Month': '100',
+        'x-ratelimit-remaining-month': '88',
+      });
     
     const api = new HolidayApi({ apiKey: 'abc123' });
     const response = await api.getEvents();
@@ -169,8 +182,8 @@ describe('getEventInfo', () => {
   });
 
   test('invalid event', async () => {
-    nock('https://api.apilayer.com/checkiday/', {
-    }).get('/event')
+    nock('https://api.apilayer.com/checkiday/')
+      .get('/event')
       .query({
         id: 'hi',
       })
@@ -239,8 +252,8 @@ describe('search', () => {
   });
 
   test('query too short', async () => {
-    nock('https://api.apilayer.com/checkiday/', {
-    }).get('/search')
+    nock('https://api.apilayer.com/checkiday/')
+      .get('/search')
       .query({
         query: 'a',
       })
@@ -251,8 +264,8 @@ describe('search', () => {
   });
 
   test('too many results', async () => {
-    nock('https://api.apilayer.com/checkiday/', {
-    }).get('/search')
+    nock('https://api.apilayer.com/checkiday/')
+      .get('/search')
       .query({
         query: 'day',
       })
