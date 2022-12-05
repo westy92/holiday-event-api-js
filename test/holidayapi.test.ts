@@ -4,6 +4,11 @@ import { RateLimit } from '../src/types';
 
 const PACKAGE_VERSION = require('../package.json').version;
 
+afterEach(() => {
+  nock.cleanAll();
+  nock.enableNetConnect();
+});
+
 describe('constructor tests', () => {
   test('works with a proper-looking configuration', () => {
       expect(new HolidayApi({ apiKey: 'abc123' })).toBeInstanceOf(HolidayApi);
@@ -26,7 +31,7 @@ describe('common functionality tests', () => {
         'apikey': 'abc123',
       },
     }).get('/events')
-      .reply(200);
+      .reply(200, {});
     
     const api = new HolidayApi({ apiKey: 'abc123' });
     await api.getEvents();
@@ -38,7 +43,7 @@ describe('common functionality tests', () => {
         'user-agent': `HolidayApiJs/${PACKAGE_VERSION}`,
       },
     }).get('/events')
-      .reply(200);
+      .reply(200, {});
     
     const api = new HolidayApi({ apiKey: 'abc123' });
     await api.getEvents();
@@ -62,6 +67,15 @@ describe('common functionality tests', () => {
     expect(api.getEvents()).rejects.toThrowError('Internal Server Error');
   });
 
+  test('server error (malformed response)', async () => {
+    nock('https://api.apilayer.com/checkiday/')
+      .get('/events')
+      .reply(200, '');
+    
+    const api = new HolidayApi({ apiKey: 'abc123' });
+    expect(api.getEvents()).rejects.toThrowError('Unable to parse response.');
+  });
+
   test('follows redirects', async () => {
     nock('https://api.apilayer.com/checkiday/')
       .get('/events')
@@ -69,7 +83,7 @@ describe('common functionality tests', () => {
         'Location': 'https://api.apilayer.com/checkiday/redirected'
       })
       .get('/redirected')
-      .reply(200)
+      .reply(200, {});
     
     const api = new HolidayApi({ apiKey: 'abc123' });
     await api.getEvents();

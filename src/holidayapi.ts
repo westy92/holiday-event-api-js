@@ -96,17 +96,18 @@ export class HolidayApi {
     let payload: any;
     try {
       payload = await response.json();
-    } catch (err) {
-      payload = {};
-    } finally {
       payload.rateLimit = {
-        limitMonth: parseInt(response.headers.get('x-ratelimit-limit-month')),
-        remainingMonth: parseInt(response.headers.get('x-ratelimit-remaining-month')),
+        limitMonth: parseInt(response.headers.get('x-ratelimit-limit-month'), 10),
+        remainingMonth: parseInt(response.headers.get('x-ratelimit-remaining-month'), 10),
+      }
+    } catch (err) {
+      if (response.ok) {
+        throw new Error('Unable to parse response.');
       }
     }
 
     if (!response.ok) {
-      throw new Error(payload.error || response.statusText);
+      throw new Error(payload?.error || response.statusText);
     }
 
     return payload;
