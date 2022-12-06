@@ -18,6 +18,7 @@ Simply construct an instance of `HolidayApi` and pass your API Key like this:
 ```ts
 import { HolidayApi } from 'holiday-event-api';
 
+// Get a FREE API key from https://apilayer.com/marketplace/checkiday-api#pricing
 const api = new HolidayApi({ apiKey: '<Your API Key Here>' });
 ```
 
