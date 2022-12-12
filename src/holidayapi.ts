@@ -107,7 +107,7 @@ export class HolidayApi {
     }
 
     if (!response.ok) {
-      throw new Error(payload?.error || response.statusText);
+      throw new Error(payload?.error || response.statusText || response.status);
     }
 
     return payload;

@@ -67,6 +67,15 @@ describe('common functionality tests', () => {
     expect(api.getEvents()).rejects.toThrowError('Internal Server Error');
   });
 
+  test('server error (unknown)', async () => {
+    nock('https://api.apilayer.com/checkiday/')
+      .get('/events')
+      .reply(599);
+    
+    const api = new HolidayApi({ apiKey: 'abc123' });
+    expect(api.getEvents()).rejects.toThrowError('599');
+  });
+
   test('server error (malformed response)', async () => {
     nock('https://api.apilayer.com/checkiday/')
       .get('/events')
