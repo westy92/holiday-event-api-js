@@ -1,4 +1,4 @@
-# Holiday and Event API for JavaScript/TypeScript
+# The Official Holiday and Event API for JavaScript/TypeScript
 
 [![npm version](https://badge.fury.io/js/holiday-event-api.svg)](https://www.npmjs.com/package/holiday-event-api)
 [![Build Status](https://github.com/westy92/holiday-event-api-js/actions/workflows/github-actions.yml/badge.svg)](https://github.com/westy92/holiday-event-api-js/actions)
