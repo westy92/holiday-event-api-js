@@ -1,7 +1,7 @@
 /**
  * Data needed to create a new API client.
  */
-export type HolidayApiConfig = {
+export type HolidaysConfig = {
   /**
    * Your API Key.
    * Get a FREE API key from https://apilayer.com/marketplace/checkiday-api#pricing

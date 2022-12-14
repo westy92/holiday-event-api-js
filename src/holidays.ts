@@ -6,18 +6,18 @@ import {
   GetEventInfoResponse,
   GetEventsRequest,
   GetEventsResponse,
-  HolidayApiConfig,
+  HolidaysConfig,
   SearchRequest,
   SearchResponse,
 } from './types';
 
-export class HolidayApi {
+export class Holidays {
   private apiKey: string;
-  private version: string = '0.0.3';
+  private version: string = '1.0.0';
   private baseUrl: string = 'https://api.apilayer.com/checkiday/';
   private userAgent: string = 'HolidayApiJs/' + this.version;
 
-  constructor(config: HolidayApiConfig) {
+  constructor(config: HolidaysConfig) {
     if (!config?.apiKey || config.apiKey.length == 0) {
       throw new Error('Please provide a valid API key. Get one at https://apilayer.com/marketplace/checkiday-api#pricing.');
     }

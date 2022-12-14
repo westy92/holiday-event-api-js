@@ -11,15 +11,21 @@ Industry-leading Holiday and Event API for JavaScript/TypeScript. Over 5,000 hol
 # Authentication
 Access to the Holiday and Event API requires an API Key. You can get for one for FREE [here](https://apilayer.com/marketplace/checkiday-api#pricing), no credit card required! Note that free plans are limited. To access more data and have more requests, a paid plan is required.
 
+# Installation
+
+```terminal
+$ npm install --save holiday-event-api
+```
+
 # Example Usage
 
 ## Authentication
-Simply construct an instance of `HolidayApi` and pass your API Key like this:
+Simply construct an instance of `Holidays` and pass your API Key like this:
 ```ts
-import { HolidayApi } from 'holiday-event-api';
+import { Holidays } from 'holiday-event-api';
 
 // Get a FREE API key from https://apilayer.com/marketplace/checkiday-api#pricing
-const api = new HolidayApi({ apiKey: '<Your API Key Here>' });
+const api = new Holidays({ apiKey: '<Your API Key Here>' });
 ```
 
 ## Example Project

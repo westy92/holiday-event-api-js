@@ -1,5 +1,5 @@
 import * as nock from 'nock';
-import { HolidayApi } from '../src/holidayapi';
+import { Holidays } from '../src/holidays';
 import { RateLimit } from '../src/types';
 
 const PACKAGE_VERSION = require('../package.json').version;
@@ -11,16 +11,16 @@ afterEach(() => {
 
 describe('constructor tests', () => {
   test('works with a proper-looking configuration', () => {
-      expect(new HolidayApi({ apiKey: 'abc123' })).toBeInstanceOf(HolidayApi);
+      expect(new Holidays({ apiKey: 'abc123' })).toBeInstanceOf(Holidays);
   });
 
   test('requires a configuration', () => {
-    expect(() => new HolidayApi(null as any)).toThrowError('Please provide a valid API key.');
+    expect(() => new Holidays(null as any)).toThrowError('Please provide a valid API key.');
   });
 
   test('requires a proper-looking API key', () => {
-    expect(() => new HolidayApi({} as any)).toThrowError('Please provide a valid API key.');
-    expect(() => new HolidayApi({apiKey: ''})).toThrowError('Please provide a valid API key.');
+    expect(() => new Holidays({} as any)).toThrowError('Please provide a valid API key.');
+    expect(() => new Holidays({apiKey: ''})).toThrowError('Please provide a valid API key.');
   });
 });
 
@@ -33,7 +33,7 @@ describe('common functionality tests', () => {
     }).get('/events')
       .reply(200, {});
     
-    const api = new HolidayApi({ apiKey: 'abc123' });
+    const api = new Holidays({ apiKey: 'abc123' });
     await api.getEvents();
   });
 
@@ -45,7 +45,7 @@ describe('common functionality tests', () => {
     }).get('/events')
       .reply(200, {});
     
-    const api = new HolidayApi({ apiKey: 'abc123' });
+    const api = new Holidays({ apiKey: 'abc123' });
     await api.getEvents();
   });
 
@@ -54,7 +54,7 @@ describe('common functionality tests', () => {
       .get('/events')
       .reply(401, { error: 'MyError!' });
     
-    const api = new HolidayApi({ apiKey: 'abc123' });
+    const api = new Holidays({ apiKey: 'abc123' });
     expect(api.getEvents()).rejects.toThrowError('MyError!');
   });
 
@@ -63,7 +63,7 @@ describe('common functionality tests', () => {
       .get('/events')
       .reply(500);
     
-    const api = new HolidayApi({ apiKey: 'abc123' });
+    const api = new Holidays({ apiKey: 'abc123' });
     expect(api.getEvents()).rejects.toThrowError('Internal Server Error');
   });
 
@@ -72,7 +72,7 @@ describe('common functionality tests', () => {
       .get('/events')
       .reply(599);
     
-    const api = new HolidayApi({ apiKey: 'abc123' });
+    const api = new Holidays({ apiKey: 'abc123' });
     expect(api.getEvents()).rejects.toThrowError('599');
   });
 
@@ -81,7 +81,7 @@ describe('common functionality tests', () => {
       .get('/events')
       .reply(200, '');
     
-    const api = new HolidayApi({ apiKey: 'abc123' });
+    const api = new Holidays({ apiKey: 'abc123' });
     expect(api.getEvents()).rejects.toThrowError('Unable to parse response.');
   });
 
@@ -94,7 +94,7 @@ describe('common functionality tests', () => {
       .get('/redirected')
       .reply(200, {});
     
-    const api = new HolidayApi({ apiKey: 'abc123' });
+    const api = new Holidays({ apiKey: 'abc123' });
     await api.getEvents();
   });
 
@@ -106,7 +106,7 @@ describe('common functionality tests', () => {
         'x-ratelimit-remaining-month': '88',
       });
     
-    const api = new HolidayApi({ apiKey: 'abc123' });
+    const api = new Holidays({ apiKey: 'abc123' });
     const response = await api.getEvents();
     expect(response.rateLimit).toEqual<RateLimit>({
       limitMonth: 100,
@@ -121,7 +121,7 @@ describe('getEvents', () => {
       .get('/events')
       .replyWithFile(200, 'test/responses/getEvents-default.json');
     
-    const api = new HolidayApi({ apiKey: 'abc123' });
+    const api = new Holidays({ apiKey: 'abc123' });
     const response = await api.getEvents();
     expect(response.adult).toBe(false);
     expect(response.timezone).toBe('America/Chicago');
@@ -145,7 +145,7 @@ describe('getEvents', () => {
       })
       .replyWithFile(200, 'test/responses/getEvents-parameters.json');
     
-    const api = new HolidayApi({ apiKey: 'abc123' });
+    const api = new Holidays({ apiKey: 'abc123' });
     const response = await api.getEvents({
       adult: true,
       timezone: 'America/New_York',
@@ -173,7 +173,7 @@ describe('getEventInfo', () => {
       })
       .replyWithFile(200, 'test/responses/getEventInfo.json');
     
-    const api = new HolidayApi({ apiKey: 'abc123' });
+    const api = new Holidays({ apiKey: 'abc123' });
     const response = await api.getEventInfo({
       id: 'f90b893ea04939d7456f30c54f68d7b4',
     });
@@ -191,7 +191,7 @@ describe('getEventInfo', () => {
       })
       .replyWithFile(200, 'test/responses/getEventInfo-parameters.json');
     
-    const api = new HolidayApi({ apiKey: 'abc123' });
+    const api = new Holidays({ apiKey: 'abc123' });
     const response = await api.getEventInfo({
       id: 'f90b893ea04939d7456f30c54f68d7b4',
       start: 2002,
@@ -212,17 +212,17 @@ describe('getEventInfo', () => {
       })
       .reply(404, { error: 'Event not found.' });
     
-    const api = new HolidayApi({ apiKey: 'abc123' });
+    const api = new Holidays({ apiKey: 'abc123' });
     expect(api.getEventInfo({ id: 'hi' })).rejects.toThrowError('Event not found.');
   });
 
   test('missing id', async () => {
-    const api = new HolidayApi({ apiKey: 'abc123' });
+    const api = new Holidays({ apiKey: 'abc123' });
     expect(api.getEventInfo({} as any)).rejects.toThrowError('Event id is required.');
   });
 
   test('missing parameters', async () => {
-    const api = new HolidayApi({ apiKey: 'abc123' });
+    const api = new Holidays({ apiKey: 'abc123' });
     expect(api.getEventInfo(undefined as any)).rejects.toThrowError('Event id is required.');
   });
 });
@@ -236,7 +236,7 @@ describe('search', () => {
       })
       .replyWithFile(200, 'test/responses/search-default.json');
     
-    const api = new HolidayApi({ apiKey: 'abc123' });
+    const api = new Holidays({ apiKey: 'abc123' });
     const response = await api.search({
       query: 'zucchini',
     });
@@ -259,7 +259,7 @@ describe('search', () => {
       })
       .replyWithFile(200, 'test/responses/search-parameters.json');
     
-    const api = new HolidayApi({ apiKey: 'abc123' });
+    const api = new Holidays({ apiKey: 'abc123' });
     const response = await api.search({
       adult: true,
       query: 'porch day',
@@ -282,7 +282,7 @@ describe('search', () => {
       })
       .reply(400, { error: 'Please enter a longer search term.' });
     
-    const api = new HolidayApi({ apiKey: 'abc123' });
+    const api = new Holidays({ apiKey: 'abc123' });
     expect(api.search({ query: 'a' })).rejects.toThrowError('Please enter a longer search term.');
   });
 
@@ -294,12 +294,12 @@ describe('search', () => {
       })
       .reply(400, { error: 'Too many results returned. Please refine your query.' });
     
-    const api = new HolidayApi({ apiKey: 'abc123' });
+    const api = new Holidays({ apiKey: 'abc123' });
     expect(api.search({ query: 'day' })).rejects.toThrowError('Too many results returned. Please refine your query.');
   });
 
   test('missing parameters', async () => {
-    const api = new HolidayApi({ apiKey: 'abc123' });
+    const api = new Holidays({ apiKey: 'abc123' });
     expect(api.search(undefined as any)).rejects.toThrowError('Search query is required.');
   });
 });

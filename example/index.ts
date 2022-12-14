@@ -1,12 +1,12 @@
-import { HolidayApi } from 'holiday-event-api';
+import { Holidays } from 'holiday-event-api';
 
 // Get a FREE API key from https://apilayer.com/marketplace/checkiday-api#pricing
-const holidayApi = new HolidayApi({ apiKey: '<Your API Key Here>' });
+const holidays = new Holidays({ apiKey: '<Your API Key Here>' });
 
 (async () => {
   try {
     // Get Events for a given Date
-    const result = await holidayApi.getEvents({
+    const result = await holidays.getEvents({
       // These parameters are the defaults but can be specified:
       // date: 'today',
       // timezone: 'America/Chicago',
@@ -17,7 +17,7 @@ const holidayApi = new HolidayApi({ apiKey: '<Your API Key Here>' });
     console.log(`Rate limits remaining: ${result.rateLimit.remainingMonth}/${result.rateLimit.limitMonth} (month).`);
 
     // Get Event Information
-    const eventInfo = await holidayApi.getEventInfo({
+    const eventInfo = await holidays.getEventInfo({
       id: event.id,
       // These parameters can be specified to calculate the range of eventInfo.Event.Occurrences
       //start: 2020,
@@ -28,7 +28,7 @@ const holidayApi = new HolidayApi({ apiKey: '<Your API Key Here>' });
 
     // Search for Events
     const query = 'pizza day';
-    const search = await holidayApi.search({
+    const search = await holidays.search({
       query: query,
       // These parameters are the defaults but can be specified:
       // adult: false,
