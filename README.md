@@ -13,7 +13,7 @@ Access to the Holiday and Event API requires an API Key. You can get for one for
 
 # Installation
 
-```terminal
+```console
 $ npm install --save holiday-event-api
 ```
 
