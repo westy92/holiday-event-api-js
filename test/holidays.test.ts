@@ -49,6 +49,18 @@ describe('common functionality tests', () => {
     await api.getEvents();
   });
 
+  test('passes along platform version', async () => {
+    nock('https://api.apilayer.com/checkiday/', {
+      reqheaders: {
+        'x-platform-version': process.versions.node,
+      },
+    }).get('/events')
+      .reply(200, {});
+    
+    const api = new Holidays({ apiKey: 'abc123' });
+    await api.getEvents();
+  });
+
   test('passes along error', async () => {
     nock('https://api.apilayer.com/checkiday/')
       .get('/events')

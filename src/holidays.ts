@@ -90,6 +90,7 @@ export class Holidays {
       headers: {
         apikey: this.apiKey,
         'User-Agent': this.userAgent,
+        'X-Platform-Version': process.versions.node,
       },
     });
 
