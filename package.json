@@ -1,6 +1,6 @@
 {
   "name": "holiday-event-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Industry-leading holiday and event API for Node.js.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

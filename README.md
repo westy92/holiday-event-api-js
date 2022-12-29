@@ -217,5 +217,6 @@ Example response (some strings shortened to save space):
 }
 ```
 
-<!-- TODO errors -->
-<!-- TODO changelog once 1.0.0 -->
+## License
+
+The Holiday and Event API is made available under the MIT License (MIT). Please see the [License File](LICENSE) for more information.
