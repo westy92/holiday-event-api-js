@@ -2,7 +2,13 @@
     "event": {
         "id": "f90b893ea04939d7456f30c54f68d7b4",
         "name": "International Cat Day",
-        "alternate_names": [],
+        "alternate_names": [
+            {
+                "name": "TEST",
+                "first_year": 2005,
+                "last_year": null
+            }
+        ],
         "adult": false,
         "url": "https://www.checkiday.com/f90b893ea04939d7456f30c54f68d7b4/international-cat-day",
         "hashtags": [
