@@ -8,19 +8,22 @@
 
 Industry-leading Holiday and Event API for JavaScript/TypeScript. Over 5,000 holidays and thousands of descriptions. Trusted by the World’s leading companies. Built by developers for developers since 2011.
 
-# Authentication
+## Authentication
+
 Access to the Holiday and Event API requires an API Key. You can get for one for FREE [here](https://apilayer.com/marketplace/checkiday-api#pricing), no credit card required! Note that free plans are limited. To access more data and have more requests, a paid plan is required.
 
-# Installation
+## Installation
 
 ```console
-$ npm install --save holiday-event-api
+npm install --save holiday-event-api
 ```
 
-# Example Usage
+## Example Usage
 
-## Authentication
+### Authentication
+
 Simply construct an instance of `Holidays` and pass your API Key like this:
+
 ```ts
 import { Holidays } from 'holiday-event-api';
 
@@ -28,10 +31,12 @@ import { Holidays } from 'holiday-event-api';
 const api = new Holidays({ apiKey: '<Your API Key Here>' });
 ```
 
-## Example Project
+### Example Project
+
 You can find a fully-functioning example project [here](example).
 
-## Get Events
+### Get Events
+
 Get all events for a specified date.
 
 ```ts
@@ -49,6 +54,7 @@ const response = await api.getEvents({
 ```
 
 Example response (some events removed to save space):
+
 ```json
 {
     "timezone": "America/New_York",
@@ -92,7 +98,8 @@ Example response (some events removed to save space):
 }
 ```
 
-## Search For Events
+### Search For Events
+
 Search for events with a specified query.
 
 ```ts
@@ -106,6 +113,7 @@ const response = await api.search({
 ```
 
 Example response:
+
 ```json
 {
     "query": "zucchini",
@@ -134,7 +142,8 @@ Example response:
 }
 ```
 
-## Get Event Information
+### Get Event Information
+
 Get additional information for an Event.
 
 ```ts
@@ -151,6 +160,7 @@ const response = await api.getEventInfo({
 ```
 
 Example response (some strings shortened to save space):
+
 ```json
 {
     "event": {
@@ -197,6 +207,11 @@ Example response (some strings shortened to save space):
                 "observed_html": "annually on <a href=\"https://www.checkiday.com/8/8\">August 8th</a>",
                 "observed_markdown": "annually on [August 8th](https://www.checkiday.com/8/8)",
                 "length": 1
+            }
+        ],
+        "tags": [
+            {
+                "name": "Pets & Animals"
             }
         ],
         "occurrences": [
