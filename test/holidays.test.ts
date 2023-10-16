@@ -191,6 +191,7 @@ describe('getEventInfo', () => {
     });
     expect(response.event.id).toBe('f90b893ea04939d7456f30c54f68d7b4');
     expect(response.event.hashtags).toHaveLength(2);
+    expect(response.event.tags).toEqual([{ name: 'Pets & Animals' }]);
   });
 
   test('fetches with set parameters', async () => {
