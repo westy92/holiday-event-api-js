@@ -51,6 +51,11 @@
                 "length": 1
             }
         ],
+        "tags": [
+            {
+                "name": "Pets & Animals"
+            }
+        ],
         "occurrences": [
             {
                 "date": "08/08/2020",

@@ -82,6 +82,16 @@ export type FounderInfo = {
 };
 
 /**
+ * Information about an Event tag
+ */
+export type Tag = {
+  /**
+   * The name of the tag.
+   */
+  name: string;
+};
+
+/**
  * Formatted Text
  */
 export type RichText = {
@@ -278,6 +288,10 @@ export type GetEventInfoResponse = StandardResponse & {
      * The Event's founders
      */
     founders?: FounderInfo[];
+    /**
+     * The Event's tags
+     */
+    tags?: Tag[];
   };
 };
 
