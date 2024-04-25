@@ -23,6 +23,7 @@ jobs:
     - run: npm test
     - name: Upload Code Coverage
       if: ${{ matrix.node-version == '22' && matrix.os == 'ubuntu-latest' }}
-      uses: codecov/codecov-action@v1
+      uses: codecov/codecov-action@v4
       with:
-        file: ./coverage/lcov.info
+        files: ./coverage/lcov.info
+        token: ${{ secrets.CODECOV_TOKEN }}
